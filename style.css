@@ -110,7 +110,7 @@ a.sidebar-bar-item:hover {
 
 .lazy{
 	width: 170px;
-	height: 290px;
+	height: 265px;
 	border-radius: 6px 6px 7px 7px;
 }
 
@@ -298,6 +298,7 @@ body{
 @media screen and (max-width: 950px) { 
 	#mySidebar {
 		display: none;
+
 }
 
 #content {
