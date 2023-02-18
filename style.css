@@ -222,6 +222,19 @@ body {
 	font-family: Roboto, sans-serif;
 }
 
+body::-webkit-scrollbar {
+	width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+	background: #F4F4F9;
+	border-radius: 50px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+	background: #586F7C;
+}
+
 .hidden {
 	overflow: hidden;
 }
