@@ -38,8 +38,8 @@ p {
 #mySidebar { 
 	background-color: #000000;
 	opacity: 85%;
-	height: 60%; 
-	width: 180px; 
+	height: 68%; 
+	width: 170px; 
 	position: fixed!important; 
 	overflow: hidden; 
 }
@@ -71,6 +71,19 @@ a.sidebar-bar-item {
 }
 
 a.sidebar-bar-item:hover {
+	background: #19273b; 
+	text-decoration: none;
+}
+
+a.sidebar-bar-full {
+	display: block; 
+	padding: 15px 5px 15px 20px;
+	font-weight: bold;
+	color: #CCFF33 !important; 
+	text-decoration: none;
+}
+
+a.sidebar-bar-full:hover {
 	background: #19273b; 
 	text-decoration: none;
 }
