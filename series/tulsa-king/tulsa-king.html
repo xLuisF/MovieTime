@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Movie Time!</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="./img/favicon.png">
+
+<style>
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+:root {
+  --bg: #1a1e2d;
+  --green: #a5ea9b;
+  --pink: #ff61d8;
+  --blue: #569cfa;
+  --orange: #ffcc81;
+  --cyan: #7ed1e2;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+h1 { 
+	font-size: 1.8em; 
+	font-family: Roboto, sans-serif; 
+	line-height: 1.167em;
+}
+
+h1,h1 a,h1 a:visited {
+	color: #f4f4f4;
+}
+
+a#favorite {
+	color: #ff1717;
+}
+
+.fav {
+	display:none;
+}
+
+p { 
+	line-height: 1.8em;
+}
+
+#mySidebar { 
+	background-color: #000000;
+	opacity: 85%;
+	height: 10%; 
+	width: 160px; 
+	position: fixed!important; 
+	overflow: hidden; 
+}
+
+@media screen and (max-width: 950px) { 
+	#mySidebar {
+		height: 55%; 
+		width: 150px;
+		padding-right: 10px;
+	}
+}
+
+#mySidebar:hover { 
+	overflow: auto;
+}
+
+b.sidebar-bar-cat {
+	display: block; 
+	padding: 10px 5px 10px 20px;
+	color: #ddd !important; 
+	text-decoration: none;
+}
+
+a.sidebar-bar-item {
+	display: block; 
+	padding: 10px 5px 10px 20px; 
+	color: #ddd !important; 
+	text-decoration: none;
+}
+
+a.sidebar-bar-item:hover {
+	background: #19273b; 
+	text-decoration: none;
+}
+
+.boxInner2 {
+	height: 290px; 
+	width: 170px; 
+	--borderWidth: 5px;
+ 	background: #1D1F20;
+  	position: relative;
+  	border-radius: var(--borderWidth);
+}
+
+.boxInner2:after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  border-radius: calc(2 * var(--borderWidth));
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+@keyframes animatedgradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.boxInner2 a {
+	color: #626262;
+}
+
+.boxInner2 {
+	margin: 8px 15px 12px; 
+	position: relative;
+}
+
+.lazy{
+	width: 170px;
+	height: 265px;
+	border-radius: 6px 6px 7px 7px;
+}
+
+.titleBox {
+	bottom: 0; 
+	width: 160px; 
+	border-radius: 0 0 7px 7px;
+	background-color: #3d3d3d;
+	font: 15px 'Lucida Sans',sans-serif; 
+	padding: 5px; overflow: hidden; 
+	position: absolute; 
+	color: #eee;
+}
+
+@media screen and (max-width: 450px) { 
+	.lazy {
+		width: 130px;
+		height: 190px;
+	}
+	.boxInner2 {
+		width: 130px;
+		height: 190px;
+		margin: 10px 10px 20px;
+	}
+	.titleBox{
+		width: 120px;
+	}
+}
+
+a{
+	text-decoration: none;
+	color: #ededed;
+}
+
+.logo {
+	padding: 15px;
+}
+
+.logo a {
+	font-size: 20px; 
+	color: #DC2F02; 
+	font-weight: 700;
+}
+
+::placeholder { 
+	color: #cbcbcb;
+}
+
+#content { 
+	text-align: center; 
+	margin-left:180px;  
+}
+
+.tag-carousel-title h1 a {
+	color: #fff;
+}
+
+.fgh1 {
+	float: left;
+}
+
+.tag-carousel {
+	width: 90%; 
+	margin: auto auto; 
+	padding: 15px; 
+	position: relative;
+}
+
+.tag-carousel-title {
+	clear: both; 
+	padding-left: 15px; 
+	float:left;
+}
+
+.slider { 
+	flex-wrap: wrap; 
+	flex-direction: row; 
+}
+
+.slider { 
+	display: flex; 
+	width: 100%; 
+	overflow: hidden;
+}
+
+@media screen and (max-width: 450px) {
+	.slider {
+		width: 150px;
+	}
+}
+
+body { 
+	background-color: #011A29;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='540' height='450' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='.1'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/svg%3E");
+	background-attachment: fixed;
+	background-size: contain;
+	border: none; margin: 0; 
+	font-family: Roboto, sans-serif;
+}
+
+body::-webkit-scrollbar {
+	width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+	background: #F4F4F9;
+	border-radius: 50px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+	background: #586F7C;
+}
+
+.hidden {
+	overflow: hidden;
+}
+
+.centrado {
+	height: 100vh;
+	background: var(--bg);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container {
+  width: 80vw;
+  height: 80vh;
+}
+
+.container svg {
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+}
+
+#bongo-cat {
+  fill: var(--bg);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+#bongo-cat .laptop-cover,
+#bongo-cat .headphone .band {
+  fill: none;
+}
+
+#bongo-cat .paw, #bongo-cat .head {
+  stroke: var(--orange);
+}
+
+#bongo-cat .laptop-keyboard {
+  stroke-width: 2;
+}
+
+#bongo-cat .terminal-code {
+  stroke-width: 5;
+}
+
+#bongo-cat .music .note,
+#bongo-cat .laptop-base,
+#bongo-cat .laptop-cover,
+#bongo-cat .paw .pads {
+  stroke: var(--pink);
+}
+
+#bongo-cat .table line,
+#bongo-cat .headphone .band,
+#bongo-cat .headphone .speaker path:nth-child(3) {
+  stroke: var(--green);
+}
+
+#bongo-cat .terminal-frame,
+#bongo-cat .laptop-keyboard,
+#bongo-cat .headphone .speaker path:nth-child(2) {
+  stroke: var(--blue);
+}
+
+#bongo-cat .terminal-code,
+#bongo-cat .headphone .speaker path:first-child {
+  stroke: var(--cyan);
+}
+
+@media only screen and (max-width: 250px) { 
+	#back-to-top { 
+		display:none; 
+} 
+
+body{ 
+	overflow: hidden; 
+}
+
+#mySidebar{ 
+	overflow-y: auto; 
+} 
+
+.tagwrap{ 
+	padding:1px;
+}
+
+#extra-desc { 
+	padding: 20px; 
+} 
+
+@media screen and (max-width: 950px) { 
+	#mySidebar {
+		
+	}
+}
+
+#content {
+	margin-left:0
+}
+
+</style>
+
+</head>
+
+<body>
+	<header> 
+		<nav>
+			<div id="mySidebar"> 
+				<div class="logo"> 
+					<a href="javascript:history.back()" target="_top">Movie Time!</a>
+				</div>
+			</header>
+		<div id="content">
+		<section class="tag-carousel">
+		<div class="tag-carousel-title"> 
+			<div class="fgh1">
+				<h1><a>Tulsa King</a></h1>
+			</div> 
+		</div> 
+	<div class="slider"> 
+		<div class="boxInner2" id="border">
+			<a href="./reproductor/t1-e1.html">
+				<span class="new"></span>
+					<img class="lazy" src="https://i.imgur.com/UtGoMQM.jpg" width="170" height="290"/>
+					<div class="titleBox">T1:E1 | Vete al Oeste, Viejo</div>
+				</a>
+			</div>
+		<div class="boxInner2" id="border">
+			<a href="./reproductor/t1-e2.html">
+				<span class="new"></span>
+					<img class="lazy" src="https://i.imgur.com/UtGoMQM.jpg" width="170" height="290"/>
+					<div class="titleBox">T1:E2 | El Centro del Universo</div>
+				</a>
+			</div>
+		<div class="boxInner2" id="border">
+			<a href="./reproductor/t1-e3.html">
+				<span class="new"></span>
+					<img class="lazy" src="https://i.imgur.com/UtGoMQM.jpg" width="170" height="290"/>
+					<div class="titleBox">T1:E3 | Capricho</div>
+				</a>
+			</div>
+		<div class="boxInner2" id="border">
+			<a href="./reproductor/t1-4.html">
+				<span class="new"></span>
+					<img class="lazy" src="https://i.imgur.com/UtGoMQM.jpg" width="170" height="290"/>
+					<div class="titleBox">T1:E4 | Visita</div>
+				</a>
+			</div>
+		<div class="boxInner2" id="border">
+			<a href="./reproductor/t1-e5.html">
+				<span class="new"></span>
+					<img class="lazy" src="https://i.imgur.com/UtGoMQM.jpg" width="170" height="290"/>
+					<div class="titleBox">T1:E5 | Adiós</div>
+				</a>
+			</div>
+		<div class="boxInner2" id="border">
+			<a href="./reproductor/t1-e6.html">
+				<span class="new"></span>
+					<img class="lazy" src="https://i.imgur.com/UtGoMQM.jpg" width="170" height="290"/>
+					<div class="titleBox">T1:E6 | El Establo</div>
+				</a>
+			</div>
+		<div class="boxInner2" id="border">
+			<a href="./reproductor/t1-e7.html">
+				<span class="new"></span>
+					<img class="lazy" src="https://i.imgur.com/UtGoMQM.jpg" width="170" height="290"/>
+					<div class="titleBox">T1:E7 | Los Territorios</div>
+				</a>
+			</div>
+		<div class="boxInner2" id="border">
+			<a href="./reproductor/t1-e8.html">
+				<span class="new"></span>
+					<img class="lazy" src="https://i.imgur.com/UtGoMQM.jpg" width="170" height="290"/>
+					<div class="titleBox">T1:E8 | Los Muros</div>
+				</a>
+			</div>
+			<div class="left-button"></div>
+			<div class="right-button"></div>
+		</div>
+	</section> 
+		<p id="extra-desc">Movie Time!
+		 Sitio web creado para ver películas y series sin anuncios.</p> 
+		 <footer> 
+		 	<div class="bar"> 
+		 		<div class="bar-wrap"> 
+		 				<li>&copy; Todos los derechos reservados a Dixe</li> </ul> <div class="clear"></div> 
+		 			</div> 
+		 		</div> 
+		 	</footer> 
+		 </div>
+</body>
+
+</html>
