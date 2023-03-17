@@ -38,7 +38,7 @@ p {
 #mySidebar { 
 	background-color: #000000;
 	opacity: 85%;
-	height: 68%; 
+	height: 100%; 
 	width: 170px; 
 	position: fixed!important; 
 	overflow: hidden; 
@@ -46,7 +46,7 @@ p {
 
 @media screen and (max-width: 950px) { 
 	#mySidebar {
-		height: 55%; 
+		height: 100%; 
 		width: 150px;
 		padding-right: 10px;
 	}
